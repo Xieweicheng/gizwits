@@ -1,0 +1,4 @@
+rootProject.name = 'gizwits'
+include('gizwits-sdk')
+include('gizwits-test')
+

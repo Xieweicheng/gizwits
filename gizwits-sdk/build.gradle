@@ -1,0 +1,62 @@
+plugins {
+//    id 'org.springframework.boot' version '2.1.3.RELEASE'
+    id 'java'
+}
+
+ext {
+    spring_boot_version = "2.1.3.RELEASE"
+}
+
+//apply plugin: 'io.spring.dependency-management'
+apply plugin: 'maven'
+apply from: "https://raw.githubusercontent.com/xuexiangjys/XUtil/master/upload_nexus.gradle"
+
+group = 'cn.mrxiexie'
+version = '0.0.8-RELEASE'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    jcenter()
+//    maven {
+//        url "http://localhost:8081/repository/maven-releases/"
+//    }
+}
+
+dependencies {
+//    implementation 'org.springframework.boot:spring-boot-starter'
+    compileOnly 'org.projectlombok:lombok:1.16.18'
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-core
+    implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    不能跟lombok一起用，否则会打包失败，注解处理器可能只能有一个
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor:$spring_boot_version"
+    implementation "org.springframework.boot:spring-boot-autoconfigure:$spring_boot_version"
+    implementation "org.springframework.boot:spring-boot-starter-aop:$spring_boot_version"
+    implementation 'org.json:json:20180130'
+    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
+    implementation 'cn.hutool:hutool-crypto:4.5.0'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+}
+
+//compileJava.dependsOn(processResources)
+//
+//def nexusUrl = 'http://localhost:8081'
+//def nexusUsername = 'admin'
+//def nexusPassword = 'admin123'
+//
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            pom.groupId = 'cn.mrxiexie'
+//            pom.artifactId = 'gizwits-spring-boot-starter'
+//            pom.version = version
+//            repository(url: "${nexusUrl}/repository/maven-releases/") {
+//                authentication(userName: nexusUsername, password: nexusPassword)
+//            }
+//            snapshotRepository(url: "${nexusUrl}/repository/maven-snapshots") {
+//                authentication(userName: nexusUsername, password: nexusPassword)
+//            }
+//        }
+//    }
+//}
