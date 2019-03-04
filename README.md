@@ -67,6 +67,8 @@ gizwits.websocket.autoSubscribe=false
 gizwits.websocket.heartbeatInterval=0/30 * * * * ?
 # 与机智云云端心跳断开时间
 gizwits.websocket.heartbeatTimeout=120
+# 默认情况下开启自动配置，若不启动，则需要开发者自己接管整个websocket生命周期，可注入GizwitsWebsocketListener获取监听
+gizwits.websocket.auto-config=true
 ```
 
 - **注意**：`gizwits.websocket.heartbeatInterval` 该值必须配置
@@ -126,4 +128,5 @@ public class Handler implements GizwitsWebsocketMessageHandler {
 | write     | 写入数据点          |
 | ping      | 发送心跳            |
 
-- 若开发者需要
+- 若开发者需要监听整个 `WebSocket` 生命周期，可注入标注了 `@GizwitsWebsocketListener` 注解的 `WebSocketListener`。
+- 若开发者想自己实现 `WebSocket `的登录，断开重连，心跳，发送失败重试等功能，可添加 `gizwits.websocket.auto-config=false` 配置，并注入标注了 `@GizwitsWebsocketListener` 注解的 `WebSocketListener`，接管整个 `WebSocket` 生命周期。

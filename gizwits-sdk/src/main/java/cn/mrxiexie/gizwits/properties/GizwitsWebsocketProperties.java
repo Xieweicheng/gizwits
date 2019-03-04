@@ -48,7 +48,7 @@ public class GizwitsWebsocketProperties {
     private Boolean autoSubscribe = true;
 
     /**
-     * 默认情况下开启自动配置，若不启动，则需要开发者自己接管整个websocket生命周期，可注入GizwitsWebsocketListener获取监听
+     * 默认情况下开启自动配置，若不启动，则需要开发者自己接管整个websocket生命周期，可注入@GizwitsWebsocketListener获取监听
      * <p>
      * 自动完成登录
      * 心跳发送
