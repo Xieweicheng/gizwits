@@ -9,6 +9,9 @@ import java.util.List;
  *
  * {@link GizwitsWebsocket#login()}对应回调{@link #onLogin(WsLoginRes)}
  * {@link GizwitsWebsocket#subscribe(List)}对应回调{@link #onSubscribe(WsSubscribeRes)}
+ * {@link cn.mrxiexie.gizwits.openapi.GizwitsOpenApi#bindDevice(String, String, String)}对应回调{@link #onBindingChanged(WsBindingChanged)}
+ * {@link GizwitsWebsocket#read(String, List)}对应回调{@link #onNoti(WsNoti)}
+ * {@link GizwitsWebsocket#ping()}对应回调{@link #onPong()}
  *
  * @author mrxiexie
  * @date 3/2/19 2:29 PM

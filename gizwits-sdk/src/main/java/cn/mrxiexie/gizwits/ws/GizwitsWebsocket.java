@@ -37,7 +37,6 @@ public class GizwitsWebsocket {
     private OkHttpClient okHttpClient;
 
     @Autowired
-//    @Qualifier(value = "defaultGizwitsWebsocketListener")
     private List<WebSocketListener> webSocketListeners;
 
     @Getter
@@ -59,11 +58,14 @@ public class GizwitsWebsocket {
                 webSocketListener = listener;
                 break;
             }
-            Class<?> superclass = aClass.getSuperclass();
-            GizwitsWebsocketListener annotation = superclass.getAnnotation(GizwitsWebsocketListener.class);
+            GizwitsWebsocketListener annotation = aClass.getAnnotation(GizwitsWebsocketListener.class);
             // 容器存在多个标注 @GizwitsWebsocketListener 注解的 WebsocketListener，默认使用第一个Listener
             if (annotation != null) {
-                log.warn("存在多个标注【@GizwitsWebsocketListener】注解的【WebsocketListener】，使用了【" + name + "】");
+                if (webSocketListeners.size() > 1) {
+                    log.warn("存在多个标注【@GizwitsWebsocketListener】注解的【WebsocketListener】，使用了【" + name + "】");
+                } else {
+                    log.info("存在【@GizwitsWebsocketListener】注解的【WebsocketListener】，使用了【" + name + "】");
+                }
                 webSocketListener = listener;
                 break;
             }
@@ -74,7 +76,8 @@ public class GizwitsWebsocket {
     /**
      * 机智云websocket登录，若登录失败2秒后会重新登录
      *
-     * @return 永远返回true，若websocket断开连接，会自动重新发送
+     * @return 若启动了自动配置则永远返回true，若websocket断开连接，会自动重新发送
+     * @see GizwitsWebsocketProperties#getAutoConfig()
      */
     public boolean login() {
         WsEntity<WsLoginReq> loginWsEntity = new WsEntity<>();
@@ -94,7 +97,8 @@ public class GizwitsWebsocket {
      * 机智云websocket订阅已绑定的dids
      *
      * @param dids did 列表
-     * @return 永远返回true，若websocket断开连接，会自动重新发送
+     * @return 若启动了自动配置则永远返回true，若websocket断开连接，会自动重新发送
+     * @see GizwitsWebsocketProperties#getAutoConfig()
      */
     public boolean subscribe(List<String> dids) {
         WsEntity<List<WsSubscribeReq>> listWsEntity = new WsEntity<>();
@@ -113,7 +117,8 @@ public class GizwitsWebsocket {
      * 读取数据点
      *
      * @param did 设备did
-     * @return 永远返回true，若websocket断开连接，会自动重新发送
+     * @return 若启动了自动配置则永远返回true，若websocket断开连接，会自动重新发送
+     * @see GizwitsWebsocketProperties#getAutoConfig()
      */
     public boolean read(String did) {
         return read(did, null);
@@ -124,7 +129,8 @@ public class GizwitsWebsocket {
      *
      * @param did   设备did
      * @param names （变长数据点可选参数：传入需要读取的数据点名称，参数省略表示读取全部数据点；定长数据点读操作忽略该参数）
-     * @return 永远返回true，若websocket断开连接，会自动重新发送
+     * @return 若启动了自动配置则永远返回true，若websocket断开连接，会自动重新发送
+     * @see GizwitsWebsocketProperties#getAutoConfig()
      */
     public boolean read(String did, List<String> names) {
         WsEntity<WsRead> readWsEntity = new WsEntity<>();
@@ -141,7 +147,8 @@ public class GizwitsWebsocket {
      *
      * @param did   设备did
      * @param attrs 数据点
-     * @return
+     * @return 若启动了自动配置则永远返回true，若websocket断开连接，会自动重新发送
+     * @see GizwitsWebsocketProperties#getAutoConfig()
      */
     public boolean write(String did, Map<String, Object> attrs) {
         WsEntity<WsWrite> writeWsEntity = new WsEntity<>();
@@ -156,7 +163,8 @@ public class GizwitsWebsocket {
     /**
      * 发送心跳
      *
-     * @return 永远返回true，若websocket断开连接，会自动重新发送
+     * @return 若启动了自动配置则永远返回true，若websocket断开连接，会自动重新发送
+     * @see GizwitsWebsocketProperties#getAutoConfig()
      */
     public void ping() {
         WsEntity wsEntity = new WsEntity();

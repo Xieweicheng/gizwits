@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2/28/19 10:08 PM
  */
 @Slf4j
-@ConditionalOnProperty(value = "gizwits.websocket.enabled", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(value = "gizwits.websocket.enabled", havingValue = "true", matchIfMissing = true)
 public class GizwitsWebsocketConfiguration {
 
     @Bean
@@ -30,8 +30,8 @@ public class GizwitsWebsocketConfiguration {
         return new ThreadPoolExecutor(10, 20, 30, TimeUnit.SECONDS, new LinkedBlockingQueue<>(), namedThreadFactory);
     }
 
-    @ConditionalOnMissingBean(annotation = GizwitsWebsocketListener.class)
     @Bean
+    @ConditionalOnMissingBean(annotation = GizwitsWebsocketListener.class)
     public DefaultGizwitsWebsocketListener defaultGizwitsWebsocketListener() {
         log.info("没有注入标注【@GizwitsWebsocketListener】注解的【WebSocketListener】，使用默认的【DefaultGizwitsWebsocketListener】");
         return new DefaultGizwitsWebsocketListener();
@@ -43,10 +43,12 @@ public class GizwitsWebsocketConfiguration {
     }
 
     @Bean
+    @ConditionalOnProperty(value = "gizwits.websocket.auto-config", havingValue = "true", matchIfMissing = true)
     public GizwitsWebsocketListenerAop gizwitsWebsocketListenerAop() {
         return new GizwitsWebsocketListenerAop();
     }
 
+    @ConditionalOnProperty(value = "gizwits.websocket.auto-config", havingValue = "true", matchIfMissing = true)
     @Bean
     public GizwitsWebsocketAop gizwitsWebsocketAop() {
         return new GizwitsWebsocketAop();

@@ -1,12 +1,13 @@
 package cn.mrxiexie.gizwits;
 
 import cn.mrxiexie.gizwits.annotation.GizwitsWebsocketListener;
+import cn.mrxiexie.gizwits.ws.GizwitsWebsocket;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author mrxiexie
@@ -14,11 +15,10 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @GizwitsWebsocketListener
-@Component
 public class MyWebsocketListener extends WebSocketListener {
 
-//    @Autowired
-//    private GizwitsWebsocket gizwitsWebsocket;
+    @Autowired
+    private GizwitsWebsocket gizwitsWebsocket;
 
     public MyWebsocketListener() {
 
@@ -30,11 +30,13 @@ public class MyWebsocketListener extends WebSocketListener {
     public void onOpen(WebSocket webSocket, Response response) {
         super.onOpen(webSocket, response);
 
+        gizwitsWebsocket.login();
     }
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
         super.onMessage(webSocket, text);
+        log.info("asd");
     }
 
     @Override

@@ -12,11 +12,14 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.lang.reflect.Method;
 import java.util.List;
 
 /**
+ * 机智云WebsocketListener动态代理，监听{@link okhttp3.WebSocketListener}整个生命周期
+ *
  * @author mrxiexie
  * @date 3/1/19 1:33 PM
  */
@@ -45,25 +48,6 @@ public class GizwitsWebsocketListenerAop {
     public void doBefore(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
         String name = joinPoint.getSignature().getName();
-
-//        Signature signature = joinPoint.getSignature();
-//        String kind = joinPoint.getKind();
-//        SourceLocation sourceLocation = joinPoint.getSourceLocation();
-//        JoinPoint.StaticPart staticPart = joinPoint.getStaticPart();
-//        Object target = joinPoint.getTarget();
-//        Class declaringType = signature.getDeclaringType();
-//        String declaringTypeName = signature.getDeclaringTypeName();
-//        int modifiers = signature.getModifiers();
-//        System.out.println("name : " + name);
-//        System.out.println("declaringType : " + declaringType);
-//        System.out.println("declaringTypeName : " + declaringTypeName);
-//        System.out.println("modifiers : " + modifiers);
-//        System.out.println(gizwitsWebsocket);
-//        System.out.println("args : " + Arrays.toString(args));
-//        System.out.println("kind : " + kind);
-//        System.out.println("sourceLocation : " + sourceLocation);
-//        System.out.println("staticPart : " + staticPart);
-//        System.out.println("target : " + target);
         Class<? extends GizwitsWebsocketListenerAop> aClass = getClass();
         try {
             Method[] methods = aClass.getMethods();
@@ -191,7 +175,7 @@ public class GizwitsWebsocketListenerAop {
     /**
      * 心跳
      */
-//    @Scheduled(cron = "${gizwits.websocket.heartbeatInterval}")
+    @Scheduled(cron = "${gizwits.websocket.heartbeatInterval}")
     private void handleHeartbeat() {
         gizwitsWebsocket.ping();
     }

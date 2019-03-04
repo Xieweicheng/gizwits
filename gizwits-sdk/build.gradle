@@ -12,7 +12,7 @@ apply plugin: 'maven'
 apply from: "https://raw.githubusercontent.com/xuexiangjys/XUtil/master/upload_nexus.gradle"
 
 group = 'cn.mrxiexie'
-version = '0.0.8-RELEASE'
+version = '1.0.0-RELEASE'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -29,7 +29,6 @@ dependencies {
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-core
     implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
 //    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//    不能跟lombok一起用，否则会打包失败，注解处理器可能只能有一个
     compileOnly "org.springframework.boot:spring-boot-configuration-processor:$spring_boot_version"
     implementation "org.springframework.boot:spring-boot-autoconfigure:$spring_boot_version"
     implementation "org.springframework.boot:spring-boot-starter-aop:$spring_boot_version"
