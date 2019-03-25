@@ -76,8 +76,7 @@ public class GizwitsWebsocketAop implements GizwitsWebsocketMessageHandler {
                 lock.unlock();
             }
         };
-        Thread thread = gizwitsExecutor.getThreadFactory().newThread(runnable);
-        thread.start();
+        gizwitsExecutor.execute(runnable);
 
         return true;
     }

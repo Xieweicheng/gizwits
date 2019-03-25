@@ -5,13 +5,14 @@ import cn.mrxiexie.gizwits.ws.GizwitsWebsocket;
 import cn.mrxiexie.gizwits.ws.GizwitsWebsocketMessageHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author mrxiexie
  * @date 3/4/19 12:29 AM
  */
 @Slf4j
-//@Component
+@Component
 public class Handler implements GizwitsWebsocketMessageHandler {
 
     @Autowired

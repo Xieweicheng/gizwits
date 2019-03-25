@@ -12,7 +12,7 @@ apply plugin: 'maven'
 apply from: "https://raw.githubusercontent.com/xuexiangjys/XUtil/master/upload_nexus.gradle"
 
 group = 'cn.mrxiexie'
-version = '1.0.0-RELEASE'
+version = '1.0.1-RELEASE'
 sourceCompatibility = '1.8'
 
 repositories {
