@@ -13,12 +13,12 @@ repositories {
     mavenCentral()
     jcenter()
     maven {
-//        url "http://localhost:8081/repository/maven-releases/"
+        url "http://localhost:8081/repository/maven-releases/"
         credentials {
-            username = 'samyun'
-            password = 'samyun666'
+            username = 'mrxiexie'
+            password = 'mrxiexie'
         }
-        url "http://192.168.101.100:8081/repository/maven-releases/"
+//        url "http://192.168.101.100:8081/repository/maven-releases/"
     }
 }
 
@@ -28,7 +28,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    compile project(':gizwits-sdk')
     implementation 'com.squareup.okhttp3:okhttp:3.6.0'
-    implementation 'cn.mrxiexie:gizwits-spring-boot-starter:1.0.0-RELEASE'
+    implementation 'cn.mrxiexie:gizwits-spring-boot-starter:1.0.2-RELEASE'
     compileOnly "org.springframework.boot:spring-boot-configuration-processor"
 
 //    implementation 'cn.mrxiexie:gizwits-spring-boot-starter:0.0.2-RELEASE'

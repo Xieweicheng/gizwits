@@ -5,6 +5,9 @@ import cn.mrxiexie.gizwits.ws.GizwitsWebsocket;
 import cn.mrxiexie.gizwits.ws.GizwitsWebsocketMessageHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 /**
@@ -42,7 +45,23 @@ public class Handler implements GizwitsWebsocketMessageHandler {
 
     @Override
     public void onNoti(WsNoti wsNoti) {
-        log.info("onNoti");
+        try {
+            JSONObject jsonObject = new JSONObject(wsNoti.getAttrs());
+            System.out.println(jsonObject);
+            JSONArray business_dot = jsonObject.getJSONArray("business_dot");
+            byte[] signByteArray = new byte[business_dot.length()];
+            for (int i = 0; i < business_dot.length(); i++) {
+                signByteArray[i] = Byte.parseByte(business_dot.get(i).toString());
+            }
+            System.out.println(new String(signByteArray));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+//        Map<String, Object> attrs = wsNoti.getAttrs();
+//        new ArrayList<>(attrs.get("business_dot"))
+//        String business_dot = (String) attrs.get("business_dot");
+//        String s = new String(business_dot.toArray());
+//        log.info("onNoti : " + business_dot);
     }
 
     @Override

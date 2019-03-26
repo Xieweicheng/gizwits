@@ -104,7 +104,11 @@ public class GizwitsWebsocketListenerAop {
         }
 
         if (cmd.equals(GizwitsWsEnum.S2C_NOTI.getCmd())) {
-            WsNoti wsNoti = gson.fromJson(JSONObject.valueToString(wsEntity.getData()), WsNoti.class);
+            JSONObject obj = new JSONObject(text);
+            WsNoti wsNoti = new WsNoti();
+            JSONObject data = obj.getJSONObject("data");
+            wsNoti.setDid(data.getString("did"));
+            wsNoti.setAttrs(data.getJSONObject("attrs").toString());
             for (GizwitsWebsocketMessageHandler messageHandler : messageHandlers) {
                 messageHandler.onNoti(wsNoti);
             }
