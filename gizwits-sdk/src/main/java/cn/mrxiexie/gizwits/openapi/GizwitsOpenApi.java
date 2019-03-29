@@ -2,6 +2,7 @@ package cn.mrxiexie.gizwits.openapi;
 
 import cn.hutool.crypto.SecureUtil;
 import cn.mrxiexie.gizwits.entity.openapi.DeviceInfo;
+import cn.mrxiexie.gizwits.entity.openapi.DeviceInfos;
 import cn.mrxiexie.gizwits.entity.openapi.GizwitsUser;
 import cn.mrxiexie.gizwits.entity.openapi.Unbind;
 import cn.mrxiexie.gizwits.properties.GizwitsOpenApiProperties;
@@ -182,9 +183,7 @@ public class GizwitsOpenApi {
         if (!isSuccess(result)) {
             return null;
         }
-
-        String devices = new JSONObject(result).getJSONArray("devices").toString();
-        return gson.fromJson(devices, List.class);
+        return gson.fromJson(result, DeviceInfos.class).getDevices();
     }
 
     /**
